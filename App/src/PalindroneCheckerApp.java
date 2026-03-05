@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.Queue;
+import java.util.LinkedList;
 
 public class PalindroneCheckerApp {
 
@@ -11,21 +13,26 @@ public class PalindroneCheckerApp {
         String input = sc.nextLine();
 
         Stack<Character> stack = new Stack<>();
+        Queue<Character> queue = new LinkedList<>();
 
-        // Push characters into stack
+        // Push to stack and enqueue to queue
         for (int i = 0; i < input.length(); i++) {
-            stack.push(input.charAt(i));
+            char ch = input.charAt(i);
+            stack.push(ch);
+            queue.add(ch);
         }
 
-        String reversed = "";
+        boolean isPalindrome = true;
 
-        // Pop characters to form reversed string
-        while (!stack.isEmpty()) {
-            reversed = reversed + stack.pop();
+        // Compare dequeue from queue and pop from stack
+        while (!queue.isEmpty()) {
+            if (queue.remove() != stack.pop()) {
+                isPalindrome = false;
+                break;
+            }
         }
 
-        // Compare original and reversed string
-        if (input.equals(reversed)) {
+        if (isPalindrome) {
             System.out.println("The given string is a Palindrome.");
         } else {
             System.out.println("The given string is NOT a Palindrome.");
@@ -34,3 +41,4 @@ public class PalindroneCheckerApp {
         sc.close();
     }
 }
+
